@@ -1,0 +1,65 @@
+<h1 class="text-center">{{section.settings.about_heading}}</h1>
+<div class="about-section-outter">
+    {% for block in section.blocks %}
+        {% assign mod = forloop.index | modulo: 2 %}
+            {% if mod == 0 %}            
+            <div class="about-section-container about-section-conatiner--left">
+                <div class="about-sub-section about-sub-section--text-left">
+                    <h3>{{ block.settings.about_heading }}</h3>
+                    <p>{{ block.settings.about_text }}</p>
+                </div>
+                <div class="about-sub-section">
+                    <img src="{{ block.settings.about_image | img_url: 'large' }}" alt="{{ block.settings.image_alt_text }}">
+                </div>
+            </div>                
+            {% else %}
+                <div class="about-section-container about-section-conatiner--right">
+                    <div class="about-sub-section about-sub-section--text-right">
+                        <h3>{{ block.settings.about_heading }}</h3>
+                        <p>{{ block.settings.about_text }}</p>
+                    </div>
+                    <div class="about-sub-section">
+                        <img src="{{ block.settings.about_image | img_url: 'large' }}" alt="{{ block.settings.image_alt_text }}">
+                    </div>
+                </div>           
+            {% endif %}
+    {% endfor %}
+</div>
+
+{% schema %}
+    {
+        "name": "about_us",
+        "settings": [
+
+        ],
+            "blocks": [
+                {
+                    "type": "about_section",
+                    "name": "About Section",
+                    "settings": [
+                        {
+                            "type": "image_picker",
+                            "id": "about_image",
+                            "label": "About Section Image"
+                        },
+                        {
+                            "type": "text",
+                            "id": "image_alt_text",
+                            "label": "Alt-Text"
+                        },
+                        {
+                            "type": "text",
+                            "id": "about_heading",
+                            "label": "About Section Heading"
+                        },
+                        {
+                            "type": "textarea",
+                            "id": "about_text",
+                            "label": "About Section Text"
+                        }
+                    ]
+                }
+            ]
+        
+    }
+{% endschema %}

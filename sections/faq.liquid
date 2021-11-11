@@ -1,0 +1,68 @@
+<h2 class="text-center">{{section.settings.heading}}</h2>
+
+<div class="faq">
+    {% comment %} for each block in section blocks... {% endcomment %}
+    {% for block in section.blocks %}
+        {% comment %} ...if the block type is 'headline'... {% endcomment %}
+        {% if block.type == 'headline' %}
+            {% comment %} ...display the headline object in the settings array... {% endcomment %}
+            <h4>{{ block.settings.headline }}</h4>
+        {% comment %} ...otherwise if the block type is 'QA'... {% endcomment %}
+        {% elsif block.type == 'QA' %}
+            <div class="question">
+                <input type="checkbox" id="question-{{ forloop.index }}" class="question-toggle">
+                {% comment %} ...display the question object in the settings array... {% endcomment %}
+                <label for="question-{{ forloop.index }}" class="question-label">{{ block.settings.question }}</label>
+                {% comment %} ...display the answer object in the settings array {% endcomment %}
+                <div class="answer">{{ block.settings.answer }}</div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% schema %}
+    {
+        "name":"Frequently Asked Questions",
+        "settings": [
+            {
+                "type":"text",
+                "label":"heading for faq",
+                "id":"heading"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "QA",
+                "name": "Question / Answer",
+                "settings": [
+                    {
+                        "type":"text",
+                        "label":"title ( internal only )",
+                        "id":"title"
+                    },
+                    {
+                        "type":"text",
+                        "label":"customer questions",
+                        "id":"question"
+                    },
+                    {
+                        "type":"richtext",
+                        "label":"answer for faq",
+                        "id":"answer"
+                    }
+                ]
+            },
+            {
+                "type": "headline",
+                "name": "Headline",
+                "settings": [
+                    {
+                        "type": "text",
+                        "label": "Headline",
+                        "id": "headline"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}
